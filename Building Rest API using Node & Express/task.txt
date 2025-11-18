@@ -1,0 +1,22 @@
+We are designing a REST API -> JSON REST API
+""Note we will fetch data from - https://mockaroo.com/ in this case"" -> Generate fake date for testing 
+
+
+Note - "If we see /api we know it will through JSON but if /api not exit it will through normal HTML doc [Good practice for Hybrid]"
+
+GET/api/users -> List all users   (List of all user in JSON Data ) ✅
+GET/users -> List all users   (in HTML DOC Reader[Good for Web -> Through HTML ]) ✅  //Server Side Rendering
+
+"Dynamic path parameters"
+GET/users/:id -> ":" -> symbolizes dynamic
+GET/users/1 -> Get the user with ID 1   ✅
+GET/users/2 -> Get the user with ID 2   ✅
+
+
+POST/users -> create new user
+
+PATCH/users/1 -> Edit the user with ID 1
+
+DELETE/users/1 -> Delete the user with ID 1
+
+
