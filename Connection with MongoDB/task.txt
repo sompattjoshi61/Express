@@ -1,0 +1,7 @@
+Schema -> Where we define the structure
+        Using Schema we create Model
+        Using MODEL we do CRUD Operation
+
+
+
+
