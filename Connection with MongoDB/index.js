@@ -2,8 +2,6 @@ const express = require('express');
 const fs = require('fs')
 const mongoose = require('mongoose');
 
-const users = require('./MOCK_DATA.json');
-
 
 const app = express();
 const PORT = 8000;
@@ -24,29 +22,40 @@ mongoose.connect("mongodb://127.0.0.1:27017/premier-log")
 
 
 // Creating Schema 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     firstName: {
-        type : String,
-        required : true
+      type: String,
+      required: true,
     },
     lastName: {
-        type : String,
+      type: String,
     },
     email: {
-        type : String,        // Datatype
-        required : true,    // Must be filled 
-        unique : true       // It means it should be unique
+      type: String, // Datatype
+      required: true, // Must be filled
+      unique: true, // It means it should be unique
     },
     jobTitle: {
-        type : String,
+      type: String,
     },
     gender: {
-        type : String,
+      type: String,
     },
-})
+  },
+  { timestamps: true }  //show when the user is created and updated
+);
 
 // Creating Model
 const User = mongoose.model("user", userSchema);
+
+//Routes -> show all users exist in DB
+app.get("/users", async (req,res) => {
+    const users = await User.find();
+    return res.status(200).json(users);
+})
+
+//Adding User in DB
 
 app.post("/api/users", async (req,res) => {
     const body = req.body;
