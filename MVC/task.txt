@@ -1,0 +1,21 @@
+MVC -> Model View Controller
+
+Model-View-Controller, an architectural design pattern that separates 
+an application into three interconnected core components to manage complexity 
+and promote modularity. 
+
+1. Create a 3 Different folders:
+
+Controllers
+Models
+Views
+Routes
+middleware
+
+
+  
+
+
+
+
+
