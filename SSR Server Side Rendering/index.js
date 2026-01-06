@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const URL = require('./models/url');
+const path = require('path');
+const staticRoute = require('./routes/staticRouter');
 
 // MongoDB connection
 const connectToMongoDB = require('./connect');
@@ -13,41 +15,22 @@ connectToMongoDB('mongodb://localhost:27017/urlshortner')
         process.exit(1);
     });
 
+    //Setting up EJS
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
+
+
 const urlRoutes = require('./routes/url');
 const PORT = 8001;
 
 // Middleware
 app.use(express.json());
-
-// Test Route (HTML rendering)
-app.get('/test', async (req, res) => {
-    const allUrls = await URL.find({});
-
-    res.send(`
-        <html>
-            <head>
-                <title>All URLs</title>
-            </head>
-            <body>
-                <h2>Stored URLs</h2>
-
-                <ol>
-                    ${allUrls.map(url => `
-                        <li>
-                            ${url.shortId} →
-                            ${url.redirectUrl} →
-                            ${url.visitHistory.length}
-                        </li>
-                    `).join('')}
-                </ol>
-
-            </body>
-        </html>
-    `);
-});
+app.use(express.urlencoded({ extended: false }));
 
 // API Routes
 app.use('/url', urlRoutes);
+
+app.use("/", staticRoute);
 
 // Redirect Route
 app.get('/:shortId', async (req, res) => {
